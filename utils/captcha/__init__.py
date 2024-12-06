@@ -1,3 +1,5 @@
+# 这个代码实现了一个简单的验证码生成和验证系统，主要用于Web应用中以防止自动化程序的恶意访问
+
 """
 Copyright 2013 TY<tianyu0915@gmail.com>
 Licensed under the Apache License, Version 2.0 (the "License");

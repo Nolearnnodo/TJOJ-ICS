@@ -6,12 +6,7 @@ from ..views.oj import AnnouncementAPI
 
 urlpatterns = [
 
-    path("announcement/", AnnouncementAPI.as_view(), name="announcement_api"),
-
-    """
-    url(r"^announcement/?$", AnnouncementAPI.as_view(), name="announcement_api"),
-    """
-
+    path("announcement/", AnnouncementAPI.as_view(), name="announcement_api")
 ]
 
 """

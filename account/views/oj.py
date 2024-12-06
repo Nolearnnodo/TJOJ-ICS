@@ -156,22 +156,26 @@ class UserLoginAPI(APIView):
     @validate_serializer(UserLoginSerializer)
     def post(self, request):
         """
-        User login api
+        用户登录接口
         """
         data = request.data
+        # 使用Django的认证系统验证用户名和密码
         user = auth.authenticate(username=data["username"], password=data["password"])
-        # None is returned if username or password is wrong
+        # 如果用户名或密码错误，返回None
         if user:
+            # 检查用户账户是否被禁用
             if user.is_disabled:
                 return self.error("Your account has been disabled")
+            # 如果用户未启用双因素认证，直接登录
             if not user.two_factor_auth:
                 auth.login(request, user)
                 return self.success("Succeeded")
 
-            # `tfa_code` not in post data
+            # 如果启用了双因素认证但未提供tfa_code，返回错误
             if user.two_factor_auth and "tfa_code" not in data:
                 return self.error("tfa_required")
 
+            # 验证双因素认证代码
             if OtpAuth(user.tfa_token).valid_totp(data["tfa_code"]):
                 auth.login(request, user)
                 return self.success("Succeeded")
@@ -210,24 +214,32 @@ class UserRegisterAPI(APIView):
     @validate_serializer(UserRegisterSerializer)
     def post(self, request):
         """
-        User register api
+        用户注册接口
         """
+        # 检查系统选项是否允许注册
         if not SysOptions.allow_register:
             return self.error("Register function has been disabled by admin")
 
         data = request.data
+        # 将用户名和邮箱转换为小写
         data["username"] = data["username"].lower()
         data["email"] = data["email"].lower()
         captcha = Captcha(request)
+        # 验证验证码是否正确
         if not captcha.check(data["captcha"]):
             return self.error("Invalid captcha")
+        # 检查用户名是否已存在
         if User.objects.filter(username=data["username"]).exists():
             return self.error("Username already exists")
+        # 检查邮箱是否已存在
         if User.objects.filter(email=data["email"]).exists():
             return self.error("Email already exists")
+        # 创建新用户
         user = User.objects.create(username=data["username"], email=data["email"])
+        # 设置用户密码
         user.set_password(data["password"])
         user.save()
+        # 创建用户配置文件
         UserProfile.objects.create(user=user)
         return self.success("Succeeded")
 

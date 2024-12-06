@@ -10,13 +10,7 @@ from ..views.admin import UserAdminAPI, GenerateUserAPI
 urlpatterns = [
 
     path("user/", UserAdminAPI.as_view(), name="user_admin_api"), #用户管理界面，查看当前所有用户信息
-    path("generate_user/", GenerateUserAPI.as_view(), name="generate_user_api"), #快速生成用户
-
-    """
-    以下为django 1.x 版本使用的url+正则表达式形式，上面为django 2.x 以后使用的path形式
-    url(r"^user/?$", UserAdminAPI.as_view(), name="user_admin_api"),
-    url(r"^generate_user/?$", GenerateUserAPI.as_view(), name="generate_user_api"),
-    """
+    path("generate_user/", GenerateUserAPI.as_view(), name="generate_user_api") #快速生成用户
 
 ]
 

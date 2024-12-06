@@ -14,16 +14,7 @@ urlpatterns = [
     path("contest/password/", ContestPasswordVerifyAPI.as_view(), name="contest_password_api"),
     path("contest/announcement/", ContestAnnouncementListAPI.as_view(), name="contest_announcement_api"),
     path("contest/access/", ContestAccessAPI.as_view(), name="contest_access_api"),
-    path("contest_rank/", ContestRankAPI.as_view(), name="contest_rank_api"),
-
-    """
-    url(r"^contests/?$", ContestListAPI.as_view(), name="contest_list_api"),
-    url(r"^contest/?$", ContestAPI.as_view(), name="contest_api"),
-    url(r"^contest/password/?$", ContestPasswordVerifyAPI.as_view(), name="contest_password_api"),
-    url(r"^contest/announcement/?$", ContestAnnouncementListAPI.as_view(), name="contest_announcement_api"),
-    url(r"^contest/access/?$", ContestAccessAPI.as_view(), name="contest_access_api"),
-    url(r"^contest_rank/?$", ContestRankAPI.as_view(), name="contest_rank_api"),
-    """
+    path("contest_rank/", ContestRankAPI.as_view(), name="contest_rank_api")
 ]
 """
     API 说明：

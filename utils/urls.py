@@ -7,12 +7,7 @@ from .views import SimditorImageUploadAPIView, SimditorFileUploadAPIView
 urlpatterns = [
 
     path("upload_image/", SimditorImageUploadAPIView.as_view(), name="upload_image"),
-    path("upload_file/", SimditorFileUploadAPIView.as_view(), name="upload_file"),
-
-    """
-    url(r"^upload_image/?$", SimditorImageUploadAPIView.as_view(), name="upload_image"),
-    url(r"^upload_file/?$", SimditorFileUploadAPIView.as_view(), name="upload_file")
-    """
+    path("upload_file/", SimditorFileUploadAPIView.as_view(), name="upload_file")
 ]
 
 """
